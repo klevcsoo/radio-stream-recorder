@@ -1,0 +1,17 @@
+# Example of using systemctl to make sure the app runs
+# on startup on a Raspberry PI
+
+[Unit]
+Description=Radio Stream Recorder
+After=network.target
+
+[Service]
+ExecStart=/bin/sh /home/pi/radio-stream-recorder/example-run.sh
+WorkingDirectory=/home/pi/radio-stream-recorder
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=pi
+
+[Install]
+WantedBy=multi-user.target
