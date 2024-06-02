@@ -1,0 +1,4 @@
+schedule~=1.2.2
+oauth2client~=4.1.3
+google-api-python-client~=2.131.0
+PyDrive2~=1.19.0
