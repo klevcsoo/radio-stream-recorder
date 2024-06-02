@@ -51,7 +51,7 @@ def load_config(config_file_path) -> AppConfig:
 
     service_account: Path | None = Path(
         cfg_section.get("google_drive.service_account_path", "gdrive-service-account.json"))
-    if not service_account.is_dir():
+    if not service_account.is_file():
         service_account = None
 
     parent_id = cfg_section.get("google_drive.parent_folder_id", None)
