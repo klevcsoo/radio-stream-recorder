@@ -19,12 +19,13 @@ def print_welcome_message(config: AppConfig):
     welcome_header = " RADIO STREAM RECORDER "
     cfg_header = " CONFIGURATION "
     line_width = int(max(len(ln) for ln in f"{config}".splitlines()) * 1.5)
+    shiftby = 1 if line_width % 2 == 0 else 0
 
     welcome_spacing = int(line_width / 2 - (len(welcome_header) / 2))
-    print(C_WELCOME + "-" * (line_width - 1) + C_RESET)
+    print(C_WELCOME + "-" * (line_width - shiftby) + C_RESET)
     print(C_WELCOME + "|" + " " * (welcome_spacing - 1) + welcome_header + " " * (
             welcome_spacing - 1) + "|" + C_RESET)
-    print(C_WELCOME + "-" * (line_width - 1) + C_RESET)
+    print(C_WELCOME + "-" * (line_width - shiftby) + C_RESET)
 
     print()
 
