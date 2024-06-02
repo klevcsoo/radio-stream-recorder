@@ -10,7 +10,7 @@ git fetch
 git pull
 
 # Change the working directory
-cd /home/pi/Developer/world-is-mine-radioshow
+cd /home/pi/radio-stream-recorder
 
 # Create a virtual Python envoriment, if it doesn't already exist
 if [ ! -d ".venv" ]; then

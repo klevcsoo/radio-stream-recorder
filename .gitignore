@@ -273,7 +273,7 @@ config*.properties
 gdrive-service-account.json
 
 # Runner shell script
-run.sh
+run*.sh
 
 # SystemCTL service
-radio_stream_recorder.service
+*.service
