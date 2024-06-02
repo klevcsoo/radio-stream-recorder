@@ -18,7 +18,8 @@ def log_error(message):
 def print_welcome_message(config: AppConfig):
     welcome_header = " RADIO STREAM RECORDER "
     cfg_header = " CONFIGURATION "
-    line_width = int(max(len(ln) for ln in f"{config}".splitlines()) * 1.5)
+    width_multiplier = 1
+    line_width = int(max(len(ln) for ln in f"{config}".splitlines()) * width_multiplier)
     shiftby = 1 if line_width % 2 == 0 else 0
 
     welcome_spacing = int(line_width / 2 - (len(welcome_header) / 2))
