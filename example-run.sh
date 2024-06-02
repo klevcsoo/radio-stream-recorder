@@ -22,4 +22,4 @@ fi
 ./.venv/bin/pip3 install -r requirements.txt
 
 # Execute the main Python script (the -u switch is important for logging)
-./.venv/bin/python3 -u src/main.py
+./.venv/bin/python3 -u src/main.py --config-file configuration.properties
