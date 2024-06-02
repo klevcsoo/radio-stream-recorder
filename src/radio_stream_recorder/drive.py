@@ -26,7 +26,9 @@ def upload_recording(config: AppConfig, path: Path):
 
     file = drive.CreateFile({
         "title": path.name,
-        "parents": [{"id": config.drive_parent_folder_id}]
+        "parents": [{
+            "id": config.drive_parent_folder_id
+        }] if config.drive_parent_folder_id is not None else []
     })
     file.SetContentFile(path)
     file.Upload()
