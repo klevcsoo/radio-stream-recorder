@@ -4,6 +4,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 from pydrive2.auth import GoogleAuth
 from pydrive2.drive import GoogleDrive
 
+import logs
 from config import AppConfig
 
 
@@ -21,7 +22,7 @@ def upload_recording(config: AppConfig, path: Path):
 
     drive = GoogleDrive(gauth)
 
-    print(f"Authenticated as {drive.GetAbout()['name']}")
+    logs.log_info(f"Authenticated as {logs.C_HEADER}{drive.GetAbout()['name']}")
 
     file = drive.CreateFile({
         "title": path.name,
@@ -30,4 +31,4 @@ def upload_recording(config: AppConfig, path: Path):
     file.SetContentFile(path)
     file.Upload()
 
-    print(f"Google Drive uplod completed")
+    logs.log_info(f"Google Drive upload completed")

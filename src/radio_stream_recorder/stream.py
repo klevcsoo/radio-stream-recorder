@@ -2,6 +2,7 @@ import subprocess
 from datetime import datetime
 from pathlib import Path
 
+import logs
 from config import AppConfig
 
 
@@ -21,7 +22,10 @@ def resolve_filename(config: AppConfig) -> str:
 
 
 def record_stream(config: AppConfig) -> Path:
-    print(f"Recording stream at {datetime.now()}...")
+    def timestamp():
+        return datetime.now().strftime("%Y/%m/%d %H:%M:%S")
+
+    logs.log_info(f"Recording stream at {logs.C_HEADER}{timestamp()}{logs.C_RESET}...")
 
     output_file_path = config.recording_output_directory.joinpath(resolve_filename(config))
     try:
@@ -39,13 +43,13 @@ def record_stream(config: AppConfig) -> Path:
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE
         )
-        print(f"Stream recording finished at {datetime.now()}")
-        print(f"File: {output_file_path}")
+        logs.log_info(f"Stream recording finished at {logs.C_HEADER}{timestamp()}")
+        logs.log_info(f"File: {logs.C_HEADER}{output_file_path}")
 
         return output_file_path
     except subprocess.CalledProcessError as e:
-        print(f"Stream decode error occured: {e.stderr.decode()}")
+        logs.log_error(f"Stream decode error occured: {e.stderr.decode()}")
         exit(1)
     except Exception as e:
-        print(f"An error occured: {e}")
+        logs.log_error(f"An error occured: {e}")
         exit(1)

@@ -1,7 +1,7 @@
+import re
 from configparser import ConfigParser
 from dataclasses import dataclass, fields
 from pathlib import Path
-import re
 
 
 @dataclass
@@ -56,7 +56,7 @@ def load_config(config_file_path) -> AppConfig:
 
     parent_id = cfg_section.get("google_drive.parent_folder_id", None)
 
-    app_cfg = AppConfig(
+    return AppConfig(
         stream_url=stream_url,
         recording_duration=rec_duration,
         recording_output_directory=out_dir,
@@ -65,6 +65,3 @@ def load_config(config_file_path) -> AppConfig:
         drive_service_account_path=service_account,
         drive_parent_folder_id=parent_id,
     )
-    print(f"CONFIGURATION:\n{app_cfg}")
-
-    return app_cfg

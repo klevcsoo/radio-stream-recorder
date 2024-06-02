@@ -3,9 +3,11 @@ from time import sleep
 
 import schedule
 
+import logs
 from config import AppConfig
 from config import load_config
 from drive import upload_recording
+from logs import print_welcome_message
 from stream import record_stream
 
 
@@ -24,18 +26,18 @@ def main():
     try:
         config = load_config(args.config_file)
     except Exception as e:
-        print(f"Configuration error: {e}")
+        logs.log_error(f"Configuration error: {e}")
         exit(1)
 
+    print_welcome_message(config)
+
     if config.scheduler_start_at is None:
-        print("\nStarting one-time recording...")
         run_recording_once(config)
-        print("Done.")
+        logs.log_info("Done.")
     else:
         schedule.every().day.at(config.scheduler_start_at).do(
             run_recording_once, config
         )
-        print("\nScheduler started")
         while True:
             schedule.run_pending()
             sleep(1)
@@ -45,5 +47,6 @@ if __name__ == "__main__":
     try:
         main()
     except KeyboardInterrupt:
-        print("\nExiting process...")
+        print()
+        logs.log_info("Exiting process...")
         exit(0)
