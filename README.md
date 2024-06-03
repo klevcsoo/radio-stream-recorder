@@ -44,18 +44,19 @@ The app supports the following config properties:
 | stream.url                        | The URL pointing to the live audio file.                                                                                                                                                                                                                                                                                                                                                                             | https://icast.connectmedia.hu/5201/live.mp3 | Yes      |
 | recording.duration                | The duration of the recording as a string in the following format: "HH:mm:ss"                                                                                                                                                                                                                                                                                                                                        | 03:00:00                                    | Yes      |
 | recording.output_directory        | The directory to which the recordings should be saved. **The app will not create the directory for you if it doesn't exist, so make sure that it does first.** Default value is the _recordings_ directory in the repository root.                                                                                                                                                                                   | /home/pi/Music/recordings                   | No       |
-| recording.filename                | The filename template that should be used for creating recordings. It supports interpolation, more on that below. Default value is _stream_%date%_%time%.mp3_.                                                                                                                                                                                                                                                       | recording_%date%_%day%_%type%.mp3           | No       |
+| recording.filename                | The filename template that should be used for creating recordings. It supports interpolation, more on that below. Default value is _stream\_%date%\_%time%.mp3_.                                                                                                                                                                                                                                                     | recording\_%date%\_%day%\_%type%.mp3        | No       |
 | scheduler.start_at                | Time of the day when the scheduled recording should begin, in "HH:mm" format. If set, the app will start in **scheduled** mode, which means that every day, it will start recording at the given time for the given duration. If ommited, the app then starts in **one-time** mode, where the recording begins immediately and lasts for the given duration.                                                         | 21:00                                       | No       |
-| google_drive.service_account_path | The path to the service account through which the Google Drive API should be accessed. I've got a guide below on how to get your on service account. If ommited, the app will look for it under the default path, which is **gdrive-service-account.json**. If that doesn't exist the app will not attempt to upload the recordings.                                                                                 | ./service-account.json                      | No       |
+| google_drive.service_account_path | The path to the service account through which the Google Drive API should be accessed. I've got a guide below on how to get your own service account. If ommited, the app will look for it under the default path, which is **gdrive-service-account.json**. If that doesn't exist the app will not attempt to upload the recordings.                                                                                | ./service-account.json                      | No       |
 | google_drive.parent_folder_id     | The ID of the folder that the recordings should be placed inside on Google Drive. If ommited, the files won't be placed inside of any folder. I don't recommend not setting this property, because the uploaded recordings just sort of disappear (?), altough I'm no expert on the Google Drive API, so it might be possible I overlooked something. Without an existing service account, this property is ignored. | 10ONXcCMQUmU3o82etIzOxKVm_WLpWAL8           | No       |
+| google_drive.keep_local_copy      | Keeps the local recording files on you machine after uploading them to Google Drive. The expected value is boolean, can either be _true_ or _false_. Default is _false_. This option is ignored when not using a service account.                                                                                                                                                                                    | true                                        | No       |
 
 > The example values above configure the app to start
 > recording the stream of the Hungarian Rádió 1 radio
 > channel every day at 9 PM for 3 hours, and then using
 > the given service account, upload the recordings to
-> Google Drive.
+> Google Drive and then remove the local copies.
 
-### Filename configuration
+### Filename configuration (optional)
 
 To customise the names of the recording files, you can
 use the following "macros", which will be replaced
@@ -68,7 +69,7 @@ with their respective values at that moment:
 | `%day%`  | Gets replaced with the current day of the week in a three-letter short format. Example value: Sun. |
 | `%type%` | Gets replaced with the type of the current recording. Can either be "one-time" or "scheduled".     |
 
-### Google Drive API
+### Google Drive API (optional)
 
 If you'd like the app to automatically upload the
 recordings to your Google Drive, you need to **create a
@@ -98,7 +99,7 @@ Google Cloud Platform project** and enable the API there.
    service_account_path** property in your config file,
    and you're done!
 
-## Registering the app as a service
+## Registering the app as a service (optional)
 
 If you plan on running this 24/7 on a server, I
 recommend setting up some kind of auto-start feature.

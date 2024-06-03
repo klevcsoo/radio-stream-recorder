@@ -51,4 +51,9 @@ def print_welcome_message(config: AppConfig):
         log_info(
             f"{C_HEADER}Service account found{C_RESET}")
 
+    if config.drive_keep_local_copy:
+        log_info(f"Keeping local files")
+    else:
+        log_info(f"{C_HEADER}Not{C_RESET} keeping local files")
+
     print()

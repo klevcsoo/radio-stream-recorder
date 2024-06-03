@@ -13,6 +13,7 @@ class AppConfig:
     scheduler_start_at: str | None
     drive_service_account_path: Path | None
     drive_parent_folder_id: str | None
+    drive_keep_local_copy: bool
 
     def __str__(self):
         return "\n".join(
@@ -56,6 +57,9 @@ def load_config(config_file_path) -> AppConfig:
 
     parent_id = cfg_section.get("google_drive.parent_folder_id", None)
 
+    keep_copy_str = cfg_section.get("google_drive.keep_local_copy", "false").lower()
+    keep_copy = keep_copy_str == "true"
+
     return AppConfig(
         stream_url=stream_url,
         recording_duration=rec_duration,
@@ -64,4 +68,5 @@ def load_config(config_file_path) -> AppConfig:
         scheduler_start_at=start_at,
         drive_service_account_path=service_account,
         drive_parent_folder_id=parent_id,
+        drive_keep_local_copy=keep_copy
     )

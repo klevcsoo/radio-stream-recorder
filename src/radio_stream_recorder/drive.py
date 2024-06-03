@@ -34,3 +34,7 @@ def upload_recording(config: AppConfig, path: Path):
     file.Upload()
 
     logs.log_info(f"Google Drive upload completed")
+
+    if not config.drive_keep_local_copy:
+        path.unlink(missing_ok=True)
+        logs.log_info("Local file removed")
